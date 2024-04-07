@@ -1,23 +1,24 @@
 const express = require("express");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
+const {
+  googleCallback,
+  setupUsername,
+} = require("../controller/authController");
+const { authenticateToken } = require("../Middlewear/authMiddlewear");
+
 const router = express.Router();
 
-// Authenticate with Google
-router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
-// Google auth callback
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  (req, res) => {
-    // Successful authentication, generate token.
-    const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-
-    res.redirect(`/?token=${token}`);
-  }
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  googleCallback
 );
+
+router.post("/setup-username", authenticateToken, setupUsername);
 
 module.exports = router;
