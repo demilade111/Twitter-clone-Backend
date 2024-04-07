@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/jwtUtils");
+const User = require("../models/User");
 
 const googleCallback = async (req, res) => {
   try {
