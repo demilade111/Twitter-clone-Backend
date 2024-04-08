@@ -1,29 +1,12 @@
-// controllers/tweetController.js
-const Tweet = require("../models/Tweet");
+// models/Tweet.js
+const mongoose = require("mongoose");
 
-exports.createTweet = async (req, res) => {
-  const { content } = req.body;
-  const userId = req.user._id;
-  try {
-    const tweet = new Tweet({
-      content,
-      author: userId,
-    });
-    await tweet.save();
-    res.status(201).json(tweet);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to create tweet", error: error.message });
-  }
-};
-exports.getAllTweets = async (req, res) => {
-  try {
-    const tweets = await Tweet.find().populate("author", "displayName");
-    res.status(201).json(tweets);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to fetch tweets", error: error.message });
-  }
-};
+const TweetSchema = new mongoose.Schema({
+  content: { type: String, required: true, maxlength: 280 },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  image: { type: String }, // URL to the image, if applicable
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date },
+});
+
+module.exports = mongoose.model("Tweet", TweetSchema);
