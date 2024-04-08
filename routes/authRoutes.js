@@ -19,6 +19,6 @@ router.get(
   googleCallback
 );
 
-router.post("/setup-username", authenticateToken, setupUsername);
+router.post("/username", authenticateToken, setupUsername);
 
 module.exports = router;

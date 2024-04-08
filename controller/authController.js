@@ -12,7 +12,7 @@ const googleCallback = async (req, res) => {
     if (!user.username) {
       // Generate a temporary token for username setup
       const tempToken = generateToken(user._id, "1h");
-      return res.redirect(`/setup-username?token=${tempToken}`);
+      return res.redirect(`/auth/username?token=${tempToken}`);
     }
 
     // Generate a regular token for authenticated users
