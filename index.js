@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const { DatabaseConnection } = require("./config/db");
 const errorHandler = require("./Middlewear/errorHandle");
 const authRoutes = require("./routes/authRoutes");
+const tweetRoutes = require("./routes/tweetRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -38,9 +39,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to the server");
 });
 app.use("/auth", authRoutes);
+app.use("/tweets", tweetRoutes);
 app.use("/auth/username", (req, res) => {
   res.send("Input your username");
 });
+
 // Error handling middleware
 app.use(errorHandler);
 

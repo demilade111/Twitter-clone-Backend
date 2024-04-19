@@ -1,22 +1,16 @@
-// routes/tweetRoutes.js
 const express = require("express");
 const {
+  getTweetsByUser,
   createTweet,
-  getAllTweets,
   updateTweet,
   deleteTweet,
-} = require("../controllers/tweetController");
-const { isAuthenticated } = require("../middleware/authMiddleware");
-const { getTweetsByUser } = require("../controller/tweetController");
-
+} = require("../controller/tweetController");
+const { authenticateToken } = require("../Middlewear/authMiddlewear");
 const router = express.Router();
 
-router.post("/", isAuthenticated, createTweet);
-router.get("/", isAuthenticated, getAllTweets);
-router.put("/", isAuthenticated, updateTweet);
-router.get("/:userId", isAuthenticated, getTweetsByUser);
-router.put("/:tweetId", isAuthenticated, updateTweet);
-
-router.delete("/:tweetId", isAuthenticated, deleteTweet);
+router.post("/create", authenticateToken, createTweet);
+router.get("/:userId", authenticateToken, getTweetsByUser);
+router.put("/:tweetId", authenticateToken, updateTweet);
+router.delete("/:tweetId", authenticateToken, deleteTweet);
 
 module.exports = router;
