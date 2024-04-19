@@ -17,20 +17,12 @@ exports.createTweet = async (req, res) => {
       .json({ message: "Failed to create tweet", error: error.message });
   }
 };
-// controllers/tweetController.js
-
-const Tweet = require("../models/Tweet");
-
-// Existing controller functions...
 
 exports.getTweetsByUser = async (req, res) => {
   try {
     // Assuming req.params.userId holds the ID of the user whose tweets we want to fetch
     const userId = req.params.userId || req.user._id; // Fallback to authenticated user's ID if none is provided
-    const tweets = await Tweet.find({ author: userId }).populate(
-      "author",
-      "displayName"
-    );
+    const tweets = await Tweet.find({ author: userId }).populate("author");
 
     if (tweets.length === 0) {
       return res

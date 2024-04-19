@@ -37,7 +37,6 @@ require("./config/passport")(passport);
 app.get("/", (req, res) => {
   res.send("Welcome to the server");
 });
-
 app.use("/auth", authRoutes);
 app.use("/auth/username", (req, res) => {
   res.send("Input your username");
