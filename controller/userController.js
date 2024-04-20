@@ -63,7 +63,7 @@ async function getProfile(req, res) {
     }
 
     const profile = {
-      followersCount: user.followers.length,
+      // followersCount: user.followers.length,
       followingCount: user.following.length,
       followers: user.followers,
       following: user.following,
