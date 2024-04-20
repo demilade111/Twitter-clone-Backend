@@ -1,11 +1,11 @@
-const tweet = require("../models/tweetModel");
+const Tweet = require("../models/tweetModel");
 
 const createTweet = async (req, res, next) => {
   const { content } = req.body;
   const { _id: userId } = req.user;
   try {
     const tweet = new Tweet({ content, author: userId });
-    await tweet.save();
+    await Tweet.save();
     res.status(201).json(tweet);
   } catch (error) {
     next(error);
@@ -15,7 +15,7 @@ const createTweet = async (req, res, next) => {
 const getTweetsByUser = async (req, res, next) => {
   try {
     const userId = req.params.userId || req.user._id;
-    const tweets = await tweet.find({ author: userId }).populate("author");
+    const tweets = await Tweet.find({ author: userId }).populate("author");
     if (tweets.length === 0) {
       return res
         .status(404)

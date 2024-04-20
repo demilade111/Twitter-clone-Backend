@@ -1,9 +1,11 @@
 version: "3.8"
 services:
   app:
-    build: ./
+    container_name: backend-app
+    image: backend-image
+    build: .
     ports:
-      - "8000:8000"
+      - "2751:8000"
     environment:
       - MONGO_URI=${MONGODB_URL_STRING}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
@@ -11,16 +13,16 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - SESSION_SECRET=${SESSION_SECRET}
     depends_on:
-      - mongo
+      - mongoDb
     volumes:
       - .:/app
-
-  mongo:
+  mongoDb:
+    container_name: mongoDb
     image: mongo:latest
     ports:
       - "27017:27017"
+    restart: always
     volumes:
       - mongo-data:/data/db
-
 volumes:
   mongo-data:
