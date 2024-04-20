@@ -8,5 +8,6 @@ const TweetSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date },
 });
-
+// Adding a text index to the content field
+TweetSchema.index({ content: 'text' });
 module.exports = mongoose.model("Tweet", TweetSchema);

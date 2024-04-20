@@ -1,5 +1,5 @@
+const userModal = require("../models/userModel");
 const { generateToken } = require("../utils/jwtUtils");
-const User = require("../models/User");
 
 const googleCallback = async (req, res) => {
   try {
