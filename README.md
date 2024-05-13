@@ -1,3 +1,6 @@
+deployed endpoint :https://socialmedia-app-backend-1zp6.onrender.com/ 
+
+
 # Google Sign-In Integration
 
 ## Overview
